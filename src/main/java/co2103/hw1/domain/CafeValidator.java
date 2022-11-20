@@ -21,7 +21,6 @@ public class CafeValidator implements Validator{
         Cafe cafe = (Cafe) target;
         for (Cafe q : Hw1Application.cafes){
             if (cafe.getId() == q.getId()){
-                System.out.println("piss");
                 errors.rejectValue("id", "", "Cafe id already in use");
             }
         }
