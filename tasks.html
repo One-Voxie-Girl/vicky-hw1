@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Homework 1: Tasks for mr414</title>
+</head>
+
+<body>
+<h1>Homework 1: Tasks for mr414</h1>
+
+<p>Your personal task is to develop a system for cafes and their cakes.</p>
+
+<h2>Task 1: Configuration [4 marks]</h2>
+<p>Configure the project to support the use of JSPs as view technology. JSPs must be configured to be placed inside folder <code>src/main/webapp/WEB-INF/views/</code>.</p>
+
+<h2>Task 2: Domain Classes [13 marks]</h2>
+
+<p>Create class <code>co2103.hw1.domain.Cake</code>. With the following private fields:
+<ol>
+  <li><code>String name</code></li>
+  <li><code>String description</code></li>
+  <li><code>String ingredients</code></li>
+  <li><code>int amount</code></li>
+</ol>
+Generate necessary getters and setters. [7 marks]
+</p>
+
+<p>Create class <code>co2103.hw1.domain.Cafe</code>. With the following private fields:
+<ol>
+  <li><code>int id</code></li>
+  <li><code>String name</code></li>
+  <li><code>String address</code></li>
+  <li><code>List&lt;Cake&gt; cakes</code></li>
+</ol>
+Generate necessary getters and setters. [6 marks]
+</p>
+
+
+<h2>Task 3: Controller (simple) [5 marks]</h2>
+<p>Create controller <code>co2103.hw1.controller.MainController</code> [2 marks].
+<ol>
+  <li>Requests for URL <code>"/"</code> (POST and GET) should show the view <code>start</code> (the corresponding JSP already exists). [3 marks]</li>
+</ol>
+</p>
+
+<h2>Task 4: Controller, View, and Form [20 marks]</h2>
+
+<p>Create field <code>public static List&lt;Cafe&gt; cafes</code> in class <code>co2103.hw1.Hw1Application</code>. Initialize the list inside class <code>co2103.hw1.Hw1Application</code> to contain one cafe with two cakes. [4 marks]</p>
+
+<p>Create controller <code>co2103.hw1.controller.CafeController</code> and add methods with request mappings for the following behavior:
+<ol>
+  <li>GET requests for URL <code>"/cafes"</code> should show view <code>cafes/list</code>. [2 marks]
+    <ul>
+      <li>Add the list of all cafes from <code>co2103.hw1.Hw1Application</code> to the model as attribute <code>cafes</code>. [2 marks]</li>
+      <li>Create the corresponding JSP to list the name and address of each cafe followed by a link to URL <code>"/cakes?cafe={id of cafe}"</code>, e.g., <code>"/cakes?cafe=3"</code>. [4 marks]</li>
+    </ul>
+  </li>
+  <li>Requests for URL <code>"/newCafe"</code> should show view <code>cafes/form</code>. [3 marks] Create the corresponding JSP with a form with <code>modelAttribute="cafe"</code> and <code>action="/addCafe"</code> and inputs for all fields of class <code>Cafe</code> except for <code>cakes</code>. [5 marks]</li>
+  <li>POST requests for URL <code>"/addCafe"</code> should add a new cafe to the list of all cafes in <code>co2103.hw1.Hw1Application</code> and redirect to <code>/cafes</code>. [3 marks]</li>
+</ol>
+</p>
+
+<h2>Task 5: Controller, View, and Form with additional Parameter [33 marks]</h2>
+
+<p>Create controller <code>co2103.hw1.controller.CakeController</code> and add methods with request mappings for the following behavior:
+<ol>
+  <li>GET requests for URL <code>"/cakes"</code> should show view <code>cakes/list</code>. [2 marks]
+    <ul>
+      <li>Based on request parameter <code>cafe</code> determine the corresponding cafe from <code>co2103.hw1.Hw1Application</code>. [2 marks]</li>
+      <li>Add the list of all cakes of that cafe to the model as attribute <code>cakes</code>. [2 marks]</li>
+      <li>Create the corresponding JSP for the view to list the name, description, ingredients, and amount of each cake. [4 marks]</li>
+      <li>At the end of the list in the JSP add a link to URL <code>"/newCake?cafe={id of cafe whose cakes are listed}"</code>, e.g., <code>"/newCake?cafe=3"</code>. [4 marks]</li>
+    </ul>
+  </li>
+  <li>Requests for URL <code>"/newCake"</code> should show view <code>cakes/form</code>. [3 marks]
+    <ul>
+      <li>Create the corresponding JSP with a form with <code>modelAttribute="cake"</code> and <code>action="/addCake"</code> and inputs for all fields of class <code>Cake</code>. [6 marks]</li>
+      <li>Also add the request parameter <code>cafe</code> with the ID of the current cafe. [4 marks]</li>
+    </ul>
+  </li>
+  <li>POST requests for URL <code>"/addCake"</code> should add a new cake to the list of cakes of the cafe identified by request parameter <code>cafe</code> and then redirect to <code>/cafes</code>. [6 marks]</li>
+</ol>
+</p>
+
+<h2>Task 6: Validation [25 marks]</h2>
+
+<p>Set up a validator for class <code>Cafe</code> and make it available in controller <code>CafeController</code>. [4 marks]</p>
+<p>When adding a new cafe validate that
+  <ol>
+    <li>The value of field <code>id</code> is unique within the list <code>Hw1Application.cafes</code>. [3 marks]</li>
+    <li>The value of field <code>name</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>address</code> is not empty. [2 marks]</li>
+  </ol>
+  In case of validation errors go back to the form and show error messages for each field in the form.
+</p>
+
+
+<p>Set up a validator for class <code>Cake</code> and make it available in controller <code>CakeController</code>. [4 marks]</p>
+<p>When adding a new cake validate that
+  <ol>
+    <li>The value of field <code>name</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>description</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>ingredients</code> is either <code>"Sugar"</code>, <code>"Butter"</code>, or <code>"Flour"</code>. [3 marks]</li>
+    <li>The value of field <code>amount</code> is between (including) 0 and 15. [3 marks]</li>
+  </ol>
+  In case of validation errors go back to the form and show error messages for each field in the form.
+</p>
+
+</body>
+
+</html>
